@@ -1,0 +1,53 @@
+query getPokemons {
+    pokemon_v2_pokemon(where: {id: {_lt: 152}}) {
+        id
+        name
+        height
+        base_experience
+        pokemon_v2_pokemontypes {
+            pokemon_v2_type {
+                name
+            }
+        }
+        pokemon_v2_pokemonstats {
+            pokemon_v2_stat {
+                name
+            }
+            base_stat
+        }
+        pokemon_v2_pokemonspecy {
+            pokemon_v2_pokemoncolor {
+                id
+                name
+            }
+            pokemon_v2_evolutionchain {
+                pokemon_v2_pokemonspecies {
+                    name
+                    evolution_chain_id
+                    order
+                }
+            }
+            pokemon_v2_pokemonshape {
+                name
+            }
+            pokemon_v2_pokemonegggroups {
+                pokemon_v2_egggroup {
+                    name
+                }
+            }
+            pokemon_v2_pokemonspecies {
+                name
+                pokemon_v2_pokemonspeciesflavortexts(where: {pokemon_v2_language: {name: {_eq: "en"}}, pokemon_v2_version: {name: {_eq: "red"}}}) {
+                    flavor_text
+                }
+            }
+            name
+        }
+        pokemon_v2_pokemonabilities {
+            pokemon_v2_ability {
+                name
+            }
+        }
+        weight
+    }
+}
