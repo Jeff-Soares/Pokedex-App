@@ -1,5 +1,6 @@
 package dev.jx.pokedex.ui.adapter
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,9 @@ import dev.jx.pokedex.model.Pokemon
 import dev.jx.pokedex.ui.color.Color
 import dev.jx.pokedex.util.changeBgColor
 import dev.jx.pokedex.util.loadPokemonImage
+import kotlinx.coroutines.*
 
+@SuppressLint("NotifyDataSetChanged")
 class PokemonListAdapter : RecyclerView.Adapter<PokemonListAdapter.PokemonViewHolder>() {
 
     private var pokemonList: MutableList<Pokemon> = mutableListOf()
@@ -36,7 +39,6 @@ class PokemonListAdapter : RecyclerView.Adapter<PokemonListAdapter.PokemonViewHo
             id.text =
                 binding.root.resources.getString(R.string.formattedId, pokemon.formattedId)
             name.text = pokemon.name
-            binding.image.loadPokemonImage(pokemon.id)
 
             typeName1.text = pokemon.type.first().name
             typeName1.visibility = View.VISIBLE
@@ -46,6 +48,11 @@ class PokemonListAdapter : RecyclerView.Adapter<PokemonListAdapter.PokemonViewHo
             } else {
                 typeName2.visibility = View.GONE
             }
+
+            CoroutineScope(Dispatchers.Main).launch {
+                image.layout(0,0,0,0)
+            }
+            binding.image.loadPokemonImage(pokemon.id)
 
             changeItemPrimaryColor(pokemon)
 
@@ -81,6 +88,11 @@ class PokemonListAdapter : RecyclerView.Adapter<PokemonListAdapter.PokemonViewHo
 
     fun setPokemonList(list: List<Pokemon>) {
         pokemonList = list.toMutableList()
+        notifyDataSetChanged()
+    }
+
+    fun clearPokemonList(){
+        pokemonList.clear()
         notifyDataSetChanged()
     }
 }

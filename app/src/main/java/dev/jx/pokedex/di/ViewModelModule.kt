@@ -8,12 +8,12 @@ import dagger.hilt.android.scopes.ViewModelScoped
 import dev.jx.pokedex.data.PokedexRepository
 import dev.jx.pokedex.data.PokedexRepositoryImpl
 
-//@Module
-//@InstallIn(ViewModelComponent::class)
-//abstract class ViewModelModule {
-//
-//    @Binds
-//    @ViewModelScoped
-//    abstract fun bindRepository(repo: PokedexRepositoryImpl): PokedexRepository
-//
-//}
+@Module
+@InstallIn(ViewModelComponent::class)
+abstract class ViewModelModule {
+
+    @Binds
+    @ViewModelScoped
+    abstract fun bindRepository(repo: PokedexRepositoryImpl): PokedexRepository
+
+}
