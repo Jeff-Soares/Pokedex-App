@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/evolution_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:text="@string/evolution_chain"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/first_line"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/second_line"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/evo_one"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/pokeball_logo"
+        app:layout_constraintEnd_toEndOf="@id/first_line"
+        app:layout_constraintStart_toStartOf="@id/first_line"
+        app:layout_constraintTop_toBottomOf="@id/evolution_title"
+        tools:src="@drawable/bulbasaur_image" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/evo_one_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/evo_one"
+        app:layout_constraintStart_toStartOf="@id/evo_one"
+        app:layout_constraintTop_toBottomOf="@id/evo_one"
+        tools:text="Bulbasaur" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/evo_two"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/pokeball_logo"
+        app:layout_constraintEnd_toEndOf="@id/second_line"
+        app:layout_constraintStart_toStartOf="@id/second_line"
+        app:layout_constraintTop_toBottomOf="@id/evolution_title"
+        tools:src="@drawable/bulbasaur_image" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/evo_two_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/evo_two"
+        app:layout_constraintStart_toStartOf="@id/evo_two"
+        app:layout_constraintTop_toBottomOf="@id/evo_two"
+        tools:text="Ivysaur" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:foregroundGravity="center_horizontal"
+        android:text="Lvl 16"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:drawableTopCompat="@drawable/arrow_forward"
+        app:layout_constraintBottom_toBottomOf="@id/evo_one"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/evo_one"
+        tools:ignore="HardcodedText" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="20dp"
+        android:background="?android:listDivider"
+        app:layout_constraintTop_toBottomOf="@id/evo_one_name" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/evo_three"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/pokeball_logo"
+        app:layout_constraintEnd_toEndOf="@id/first_line"
+        app:layout_constraintStart_toStartOf="@id/first_line"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        tools:src="@drawable/bulbasaur_image" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/evo_three_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/evo_three"
+        app:layout_constraintStart_toStartOf="@id/evo_three"
+        app:layout_constraintTop_toBottomOf="@id/evo_three"
+        tools:text="Ivysaur" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/evo_four"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/pokeball_logo"
+        app:layout_constraintEnd_toEndOf="@id/second_line"
+        app:layout_constraintStart_toStartOf="@id/second_line"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        tools:src="@drawable/bulbasaur_image" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/evo_four_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/evo_four"
+        app:layout_constraintStart_toStartOf="@id/evo_four"
+        app:layout_constraintTop_toBottomOf="@id/evo_four"
+        tools:text="Ivysaur" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:foregroundGravity="center_horizontal"
+        android:text="Lvl 34"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:drawableTopCompat="@drawable/arrow_forward"
+        app:layout_constraintBottom_toBottomOf="@id/evo_three"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/evo_three"
+        tools:ignore="HardcodedText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

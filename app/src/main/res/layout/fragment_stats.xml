@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/hp_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/hp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/hp"
+        app:layout_constraintStart_toEndOf="@id/hp_title"
+        app:layout_constraintTop_toTopOf="@id/hp_title"
+        tools:text="45"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/hp_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="30dp"
+        tools:progress="45"
+        app:indicatorColor="@color/color_red"
+        app:trackColor="@color/color_white"
+        app:layout_constraintTop_toTopOf="@id/hp"
+        app:layout_constraintBottom_toBottomOf="@id/hp"
+        app:layout_constraintStart_toEndOf="@id/hp"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/attack_title"
+        app:layout_constraintStart_toStartOf="@id/hp_title"
+        app:layout_constraintTop_toBottomOf="@id/hp_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/attack" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/attack"
+        app:layout_constraintStart_toStartOf="@id/hp"
+        app:layout_constraintTop_toTopOf="@id/attack_title"
+        tools:text="60"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/attack_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="30dp"
+        tools:progress="60"
+        app:indicatorColor="@color/color_green"
+        app:trackColor="@color/color_white"
+        app:layout_constraintTop_toTopOf="@id/attack"
+        app:layout_constraintBottom_toBottomOf="@id/attack"
+        app:layout_constraintStart_toEndOf="@id/attack"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/defense_title"
+        app:layout_constraintStart_toStartOf="@id/attack_title"
+        app:layout_constraintTop_toBottomOf="@id/attack_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/defense" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/defense"
+        app:layout_constraintStart_toStartOf="@id/attack"
+        app:layout_constraintTop_toTopOf="@id/defense_title"
+        tools:text="48"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/defense_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="30dp"
+        tools:progress="48"
+        app:indicatorColor="@color/color_red"
+        app:trackColor="@color/color_white"
+        app:layout_constraintTop_toTopOf="@id/defense"
+        app:layout_constraintBottom_toBottomOf="@id/defense"
+        app:layout_constraintStart_toEndOf="@id/defense"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/spatk_title"
+        app:layout_constraintStart_toStartOf="@id/defense_title"
+        app:layout_constraintTop_toBottomOf="@id/defense_title"
+        android:text="@string/sp_atk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/spatk"
+        app:layout_constraintStart_toStartOf="@id/defense"
+        app:layout_constraintTop_toTopOf="@id/spatk_title"
+        tools:text="65"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/spatk_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="30dp"
+        tools:progress="65"
+        app:indicatorColor="@color/color_green"
+        app:trackColor="@color/color_white"
+        app:layout_constraintTop_toTopOf="@id/spatk"
+        app:layout_constraintBottom_toBottomOf="@id/spatk"
+        app:layout_constraintStart_toEndOf="@id/spatk"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/spdef_title"
+        app:layout_constraintStart_toStartOf="@id/spatk_title"
+        app:layout_constraintTop_toBottomOf="@id/spatk_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/sp_def" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/spdef"
+        app:layout_constraintStart_toStartOf="@id/spatk"
+        app:layout_constraintTop_toTopOf="@id/spdef_title"
+        tools:text="65"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/spdef_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="30dp"
+        tools:progress="65"
+        app:indicatorColor="@color/color_green"
+        app:trackColor="@color/color_white"
+        app:layout_constraintTop_toTopOf="@id/spdef"
+        app:layout_constraintBottom_toBottomOf="@id/spdef"
+        app:layout_constraintStart_toEndOf="@id/spdef"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/speed_title"
+        app:layout_constraintStart_toStartOf="@id/spdef_title"
+        app:layout_constraintTop_toBottomOf="@id/spdef_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/speed" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/speed"
+        app:layout_constraintStart_toStartOf="@id/spdef"
+        app:layout_constraintTop_toTopOf="@id/speed_title"
+        tools:text="45"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/speed_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="30dp"
+        tools:progress="45"
+        app:indicatorColor="@color/color_red"
+        app:trackColor="@color/color_white"
+        app:layout_constraintTop_toTopOf="@id/speed"
+        app:layout_constraintBottom_toBottomOf="@id/speed"
+        app:layout_constraintStart_toEndOf="@id/speed"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/total_title"
+        app:layout_constraintStart_toStartOf="@id/speed_title"
+        app:layout_constraintTop_toBottomOf="@id/speed_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/total" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/total"
+        app:layout_constraintStart_toStartOf="@id/speed"
+        app:layout_constraintTop_toTopOf="@id/total_title"
+        tools:text="317"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/total_bar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        tools:progress="55"
+        app:indicatorColor="@color/color_green"
+        app:trackColor="@color/color_white"
+        app:layout_constraintTop_toTopOf="@id/total"
+        app:layout_constraintBottom_toBottomOf="@id/total"
+        app:layout_constraintStart_toStartOf="@id/speed_bar"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

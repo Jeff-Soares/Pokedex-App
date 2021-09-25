@@ -1,10 +1,10 @@
 package dev.jx.pokedex.ui.adapter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import dev.jx.pokedex.R
 import dev.jx.pokedex.databinding.PokemonItemBinding
@@ -12,10 +12,11 @@ import dev.jx.pokedex.model.Pokemon
 import dev.jx.pokedex.ui.color.Color
 import dev.jx.pokedex.util.changeBgColor
 import dev.jx.pokedex.util.loadPokemonImage
-import kotlinx.coroutines.*
 
 @SuppressLint("NotifyDataSetChanged")
-class PokemonListAdapter : RecyclerView.Adapter<PokemonListAdapter.PokemonViewHolder>() {
+class PokemonListAdapter(private val onClick: (List<Pokemon>, Int, ImageView) -> Unit) :
+    RecyclerView
+    .Adapter<PokemonListAdapter.PokemonViewHolder>() {
 
     private var pokemonList: MutableList<Pokemon> = mutableListOf()
 
@@ -25,23 +26,26 @@ class PokemonListAdapter : RecyclerView.Adapter<PokemonListAdapter.PokemonViewHo
     }
 
     override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {
-        holder.bind(pokemonList[position])
+        holder.bind(pokemonList[position], position)
     }
 
     override fun getItemCount(): Int {
         return pokemonList.size
     }
 
-    inner class PokemonViewHolder(private val binding: PokemonItemBinding) :
-        RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+    override fun getItemId(position: Int): Long {
+        return pokemonList[position].id.toLong()
+    }
 
-        fun bind(pokemon: Pokemon) = with(binding) {
+    inner class PokemonViewHolder(private val binding: PokemonItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(pokemon: Pokemon, pos: Int) = with(binding) {
             id.text =
                 binding.root.resources.getString(R.string.formattedId, pokemon.formattedId)
             name.text = pokemon.name
 
             typeName1.text = pokemon.type.first().name
-            typeName1.visibility = View.VISIBLE
             if (pokemon.type.size > 1) {
                 typeName2.text = pokemon.type[1].name
                 typeName2.visibility = View.VISIBLE
@@ -49,20 +53,12 @@ class PokemonListAdapter : RecyclerView.Adapter<PokemonListAdapter.PokemonViewHo
                 typeName2.visibility = View.GONE
             }
 
-            CoroutineScope(Dispatchers.Main).launch {
-                image.layout(0,0,0,0)
-            }
             binding.image.loadPokemonImage(pokemon.id)
 
             changeItemPrimaryColor(pokemon)
+            binding.image.transitionName = "sharedImage_${pokemon.id}"
+            root.setOnClickListener { onClick.invoke(pokemonList.toList(), pos, binding.image) }
 
-            root.setOnClickListener(this@PokemonViewHolder)
-
-        }
-
-        override fun onClick(p0: View?) {
-            val pos = adapterPosition
-            Log.d("ViewHolderClick", pokemonList[pos].name)
         }
 
         private fun changeItemPrimaryColor(pokemon: Pokemon) = with(binding) {
@@ -70,20 +66,25 @@ class PokemonListAdapter : RecyclerView.Adapter<PokemonListAdapter.PokemonViewHo
             val white = root.resources.getColor(Color.WHITE.id, root.context.theme)
             itemLayout.changeBgColor(pokemon.specie.color)
 
+            // For color contrast
             if (pokemon.specie.color == Color.WHITE) {
                 name.setTextColor(black)
+                id.setTextColor(black)
                 typeName1.setTextColor(black)
                 typeName2.setTextColor(black)
                 typeName1.setBackgroundResource(R.drawable.bg_type_item_black)
                 typeName2.setBackgroundResource(R.drawable.bg_type_item_black)
             } else {
                 name.setTextColor(white)
+                id.setTextColor(white)
                 typeName1.setTextColor(white)
                 typeName2.setTextColor(white)
                 typeName1.setBackgroundResource(R.drawable.bg_type_item_white)
                 typeName2.setBackgroundResource(R.drawable.bg_type_item_white)
             }
         }
+
+
     }
 
     fun setPokemonList(list: List<Pokemon>) {
@@ -91,8 +92,9 @@ class PokemonListAdapter : RecyclerView.Adapter<PokemonListAdapter.PokemonViewHo
         notifyDataSetChanged()
     }
 
-    fun clearPokemonList(){
+    fun clearPokemonList() {
         pokemonList.clear()
         notifyDataSetChanged()
     }
+
 }

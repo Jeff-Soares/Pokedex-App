@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/description_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:text="@string/description"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:paddingVertical="16dp"
+        android:text="@string/description_example"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@id/biology"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/description_title" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/biology"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/growthrate_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/description"
+        android:text="@string/biology" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/growthrate_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/growth_rate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/biology" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/growthrate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/growthrate_title"
+        app:layout_constraintTop_toTopOf="@id/growthrate_title"
+        tools:text="Medium slow" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/height_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/height"
+        app:layout_constraintStart_toStartOf="@id/growthrate_title"
+        app:layout_constraintTop_toBottomOf="@id/growthrate_title" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/height"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/growthrate"
+        app:layout_constraintTop_toTopOf="@id/height_title"
+        tools:text="2'3.6'' (70 cm)" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/weight_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/weight"
+        app:layout_constraintStart_toStartOf="@id/height_title"
+        app:layout_constraintTop_toBottomOf="@id/height_title" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/height"
+        app:layout_constraintTop_toTopOf="@id/weight_title"
+        tools:text="15.2 lbs (6.9 kg)" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/abilities_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="@id/weight_title"
+        app:layout_constraintTop_toBottomOf="@id/weight_title"
+        android:text="@string/abilities" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/abilities"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/weight"
+        app:layout_constraintTop_toTopOf="@id/abilities_title"
+        tools:text="Overgrow, Chlorophyl" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/shape_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/shape"
+        app:layout_constraintStart_toStartOf="@id/abilities_title"
+        app:layout_constraintTop_toBottomOf="@id/abilities_title" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/shape"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/abilities"
+        app:layout_constraintTop_toTopOf="@id/shape_title"
+        tools:text="Quadruped" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/egggroup_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/egg_groups"
+        app:layout_constraintStart_toStartOf="@id/shape_title"
+        app:layout_constraintTop_toBottomOf="@id/shape_title" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/egggroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/shape"
+        app:layout_constraintTop_toTopOf="@id/egggroup_title"
+        tools:text="Monster, Plant" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/habitat_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/habitat"
+        app:layout_constraintStart_toStartOf="@id/egggroup_title"
+        app:layout_constraintTop_toBottomOf="@id/egggroup_title" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/habitat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/egggroup"
+        app:layout_constraintTop_toTopOf="@id/habitat_title"
+        tools:text="Grassland" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

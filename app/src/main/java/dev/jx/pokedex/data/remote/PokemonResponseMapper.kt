@@ -63,9 +63,11 @@ fun Pokemon_v2_pokemonspecy.toModel() =
     PokemonSpecie(
         name = name.formatName(),
         color = pokemon_v2_pokemoncolor?.name?.colorFormat() ?: WHITE,
-        shape = pokemon_v2_pokemonshape?.name,
+        shape = pokemon_v2_pokemonshape?.name?.formatName(),
         evolutions = pokemon_v2_evolutionchain?.toModel(),
-        eggGroup = pokemon_v2_pokemonegggroups.toModel()
+        eggGroup = pokemon_v2_pokemonegggroups.toModel(),
+        growthrate = pokemon_v2_growthrate?.name?.formatName() ?: "",
+        habitat = pokemon_v2_pokemonhabitat?.name?.capitalize() ?: ""
     )
 
 fun String.colorFormat(): Color {
@@ -89,7 +91,8 @@ fun Pokemon_v2_evolutionchain.toModel(): List<Evolution>? {
         Evolution(
             id = it.evolution_chain_id ?: return null,
             name = it.name.formatName(),
-            order = it.order ?: return null
+            order = it.order ?: return null,
+            pokemonId = it.pokemon_v2_pokemons.first().id
         )
     }
 }

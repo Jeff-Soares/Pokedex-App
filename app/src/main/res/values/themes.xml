@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.Pokedex" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Pokedex" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -14,12 +14,18 @@
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowTranslucentNavigation">true</item>
 
-        <!--        <item name="actionBarStyle">@style/ActionBarCustomTheme</item>-->
+        <item name="android:windowActivityTransitions">true</item>
     </style>
 
-<!--    <style name="ActionBarCustomTheme" parent="Widget.MaterialComponents.ActionBar.Primary">-->
-<!--        <item name="background">@android:color/transparent</item>-->
-<!--        <item name="displayOptions">showHome|useLogo</item>-->
-<!--    </style>-->
+    <style name="Pokedex.CollapsingToolbar.Expanded" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Pokedex.CollapsingToolbar.Collapsed" parent="android:TextAppearance">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">22sp</item>
+    </style>
 
 </resources>

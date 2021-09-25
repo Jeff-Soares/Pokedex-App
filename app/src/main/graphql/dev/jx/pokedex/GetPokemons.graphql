@@ -3,6 +3,7 @@ query getPokemons {
         id
         name
         height
+        weight
         base_experience
         pokemon_v2_pokemontypes {
             pokemon_v2_type {
@@ -10,10 +11,10 @@ query getPokemons {
             }
         }
         pokemon_v2_pokemonstats {
+            base_stat
             pokemon_v2_stat {
                 name
             }
-            base_stat
         }
         pokemon_v2_pokemonspecy {
             pokemon_v2_pokemoncolor {
@@ -25,6 +26,9 @@ query getPokemons {
                     name
                     evolution_chain_id
                     order
+                    pokemon_v2_pokemons {
+                        id
+                    }
                 }
             }
             pokemon_v2_pokemonshape {
@@ -42,12 +46,17 @@ query getPokemons {
                 }
             }
             name
+            pokemon_v2_growthrate {
+                name
+            }
+            pokemon_v2_pokemonhabitat {
+                name
+            }
         }
         pokemon_v2_pokemonabilities {
             pokemon_v2_ability {
                 name
             }
         }
-        weight
     }
 }

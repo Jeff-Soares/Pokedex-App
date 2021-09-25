@@ -3,4 +3,26 @@
     <string name="pokedex">Pokedex</string>
 
     <string name="formattedId">#%s</string>
+    <string name="growth_rate">Growth Rate</string>
+    <string name="height">Height</string>
+    <string name="weight">Weight</string>
+    <string name="abilities">Abilities</string>
+    <string name="shape">Shape</string>
+    <string name="egg_groups">Egg groups</string>
+    <string name="habitat">Habitat</string>
+    <string name="description">Description</string>
+    <string name="description_example">When the bulb on its back grows large, it appears to lose
+        the ability to stand on its hind legs.</string>
+    <string name="hp">HP</string>
+    <string name="attack">Attack</string>
+    <string name="defense">Defense</string>
+    <string name="sp_def">Sp. Def</string>
+    <string name="sp_atk">Sp. Atk</string>
+    <string name="speed">Speed</string>
+    <string name="total">Total</string>
+    <string name="biology">Biology</string>
+    <string name="evolution_chain">Evolution Chain</string>
+    <string name="about">About</string>
+    <string name="base_stats">Base Stats</string>
+    <string name="evolution">Evolution</string>
 </resources>

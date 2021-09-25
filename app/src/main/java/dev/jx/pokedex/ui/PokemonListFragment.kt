@@ -5,29 +5,33 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.SimpleItemAnimator
+import androidx.transition.TransitionInflater
 import dagger.hilt.android.AndroidEntryPoint
-import dev.jx.pokedex.data.PokedexRepository
+import dev.jx.pokedex.R
 import dev.jx.pokedex.databinding.FragmentPokemonListBinding
-import dev.jx.pokedex.model.Err
-import dev.jx.pokedex.model.Ok
 import dev.jx.pokedex.model.Pokemon
 import dev.jx.pokedex.ui.adapter.PokemonListAdapter
 import dev.jx.pokedex.ui.animation.BounceEdgeEffectFactory
 import dev.jx.pokedex.ui.state.ViewState
 import dev.jx.pokedex.ui.viewmodel.PokemonListViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class PokemonListFragment : Fragment() {
 
     private lateinit var binding: FragmentPokemonListBinding
     private val viewModel by viewModels<PokemonListViewModel>()
-    private val pokemonListAdapter by lazy { PokemonListAdapter() }
+    private val pokemonListAdapter by lazy {
+        PokemonListAdapter(::goToDetails).apply {
+            setHasStableIds(true)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,6 +50,8 @@ class PokemonListFragment : Fragment() {
             edgeEffectFactory = BounceEdgeEffectFactory()
         }
 
+        (binding.pokemonList.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+
         viewModel.pokemonList.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is ViewState.Success -> onSuccess(result)
@@ -54,13 +60,17 @@ class PokemonListFragment : Fragment() {
             }
         }
 
-        viewModel.getPokemonList()
+        if (viewModel.recyclerState == RecyclerState.EMPTY) viewModel.getPokemonList()
     }
 
     private fun onSuccess(result: ViewState.Success<List<Pokemon>>) {
         onLoading(false)
-        pokemonListAdapter.setPokemonList(result.value!!)
-        binding.pokemonList.scheduleLayoutAnimation()
+//        if (viewModel.recyclerState == RecyclerState.EMPTY) {
+            viewModel.recyclerState = RecyclerState.POPULATED
+            pokemonListAdapter.setPokemonList(result.value!!)
+            binding.pokemonList.scheduleLayoutAnimation()
+//        }
+
     }
 
     private fun onFailure(result: ViewState.Error<List<Pokemon>>) {
@@ -70,6 +80,22 @@ class PokemonListFragment : Fragment() {
 
     private fun onLoading(b: Boolean) {
         binding.loading.visibility = if (b) View.VISIBLE else View.GONE
+    }
+
+    private fun goToDetails(pokemons: List<Pokemon>, pos: Int, sharedImage: ImageView) {
+        val extras = FragmentNavigatorExtras(sharedImage to sharedImage.transitionName)
+        findNavController().navigate(
+            PokemonListFragmentDirections
+                .actionPokemonListFragmentToFragmentPokemonDetail(
+                    pokemons.toTypedArray(),
+                    pos,
+                    sharedImage.transitionName
+                ), extras
+        )
+    }
+
+    enum class RecyclerState {
+        POPULATED, EMPTY
     }
 
 }
