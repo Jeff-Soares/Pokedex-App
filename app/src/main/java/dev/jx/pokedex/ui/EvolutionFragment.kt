@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import dev.jx.pokedex.databinding.FragmentEvolutionBinding
-import dev.jx.pokedex.model.Evolution
 import dev.jx.pokedex.model.Pokemon
 import dev.jx.pokedex.ui.viewmodel.PokemonDetailViewModel
 import dev.jx.pokedex.util.loadPokemonImage
@@ -38,11 +37,10 @@ class EvolutionFragment : Fragment() {
 
     private fun onPokemonSelected(pokemon: Pokemon) = with(binding) {
         val evolutionChain = pokemon.specie.evolutions?.sortedBy { it.order }
-        val textViews = listOf(evoOneName, evoTwoName, evoThreeName, evoFourName)
-            .forEach { it.text = "" }
-        val imageViews = listOf(evoOne, evoTwo, evoThree, evoFour)
-            .forEach { it.setImageResource(0) }
-        if (evolutionChain?.size == 3) {
+        listOf(evoOneName, evoTwoName, evoThreeName, evoFourName).forEach { it.text = "" }
+        listOf(evoOne, evoTwo, evoThree, evoFour).forEach { it.setImageResource(0) }
+
+        if (evolutionChain != null && evolutionChain.size >= 3) {
             evoOneName.text = evolutionChain[0].name
             evoTwoName.text = evolutionChain[1].name
             evoThreeName.text = evolutionChain[1].name
@@ -52,12 +50,11 @@ class EvolutionFragment : Fragment() {
             evoThree.loadPokemonImage(evolutionChain[1].pokemonId)
             evoFour.loadPokemonImage(evolutionChain[2].pokemonId)
         } else if (evolutionChain?.size == 2) {
-            evoOneName.text = evolutionChain.first().name
-            evoTwoName.text = evolutionChain.last().name
+            evoOneName.text = evolutionChain[0].name
+            evoTwoName.text = evolutionChain[1].name
             evoOne.loadPokemonImage(evolutionChain[0].pokemonId)
             evoTwo.loadPokemonImage(evolutionChain[1].pokemonId)
         }
-
     }
 
 }

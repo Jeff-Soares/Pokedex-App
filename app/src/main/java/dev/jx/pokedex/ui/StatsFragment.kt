@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import dev.jx.pokedex.databinding.FragmentStatsBinding
 import dev.jx.pokedex.model.Pokemon
 import dev.jx.pokedex.ui.viewmodel.PokemonDetailViewModel
+import dev.jx.pokedex.util.setAnimatedProgress
 
 class StatsFragment : Fragment() {
 
@@ -44,13 +45,13 @@ class StatsFragment : Fragment() {
         speed.text = pokemon.stats.speed.toString()
         total.text = pokemon.stats.totalPoints.toString()
 
-        hpBar.progress = pokemon.stats.hp
-        attackBar.progress = pokemon.stats.attack
-        defenseBar.progress = pokemon.stats.defense
-        spatkBar.progress = pokemon.stats.espAttack
-        spdefBar.progress = pokemon.stats.espDefense
-        speedBar.progress = pokemon.stats.speed
-        totalBar.progress = (pokemon.stats.totalPoints * 100) / 600
+        hpBar.setAnimatedProgress(pokemon.stats.hp)
+        attackBar.setAnimatedProgress(pokemon.stats.attack)
+        defenseBar.setAnimatedProgress(pokemon.stats.defense)
+        spatkBar.setAnimatedProgress(pokemon.stats.espAttack)
+        spdefBar.setAnimatedProgress(pokemon.stats.espDefense)
+        speedBar.setAnimatedProgress(pokemon.stats.speed)
+        totalBar.setAnimatedProgress((pokemon.stats.totalPoints * 100) / 600)
     }
 
 }

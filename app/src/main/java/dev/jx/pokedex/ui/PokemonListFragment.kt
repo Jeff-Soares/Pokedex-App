@@ -1,7 +1,6 @@
 package dev.jx.pokedex.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.SimpleItemAnimator
-import androidx.transition.TransitionInflater
 import dagger.hilt.android.AndroidEntryPoint
-import dev.jx.pokedex.R
 import dev.jx.pokedex.databinding.FragmentPokemonListBinding
 import dev.jx.pokedex.model.Pokemon
 import dev.jx.pokedex.ui.adapter.PokemonListAdapter
@@ -65,11 +62,11 @@ class PokemonListFragment : Fragment() {
 
     private fun onSuccess(result: ViewState.Success<List<Pokemon>>) {
         onLoading(false)
-//        if (viewModel.recyclerState == RecyclerState.EMPTY) {
+        if (viewModel.recyclerState == RecyclerState.EMPTY) {
             viewModel.recyclerState = RecyclerState.POPULATED
             pokemonListAdapter.setPokemonList(result.value!!)
             binding.pokemonList.scheduleLayoutAnimation()
-//        }
+        }
 
     }
 
@@ -78,8 +75,8 @@ class PokemonListFragment : Fragment() {
         pokemonListAdapter.clearPokemonList()
     }
 
-    private fun onLoading(b: Boolean) {
-        binding.loading.visibility = if (b) View.VISIBLE else View.GONE
+    private fun onLoading(isLoading: Boolean) {
+        binding.loading.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun goToDetails(pokemons: List<Pokemon>, pos: Int, sharedImage: ImageView) {

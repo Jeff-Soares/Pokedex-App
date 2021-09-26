@@ -3,7 +3,6 @@ package dev.jx.pokedex.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import dagger.hilt.android.AndroidEntryPoint
 import dev.jx.pokedex.R
@@ -11,21 +10,20 @@ import dev.jx.pokedex.R
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var navController: NavController
+    private val navController: NavController by lazy {
+        (supportFragmentManager.findFragmentById(R.id.fragment_pokemon_list)
+                as NavHostFragment).navController
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.fragment_pokemon_list) as NavHostFragment
-        navController = navHostFragment.navController
         navController.setGraph(R.navigation.nav_host)
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp()
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
 }

@@ -1,31 +1,30 @@
 package dev.jx.pokedex.ui
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import com.google.android.material.appbar.AppBarLayout
-import dev.jx.pokedex.R
-import dev.jx.pokedex.databinding.FragmentPokemonDetailBinding
-import android.animation.ObjectAnimator
-import android.util.Log
 import androidx.core.view.doOnPreDraw
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
+import dev.jx.pokedex.R
+import dev.jx.pokedex.databinding.FragmentPokemonDetailBinding
 import dev.jx.pokedex.model.Pokemon
 import dev.jx.pokedex.ui.adapter.PokemonInfoAdapter
 import dev.jx.pokedex.ui.adapter.PokemonSliderAdapter
+import dev.jx.pokedex.ui.animation.ZoomOutPageTransformer
 import dev.jx.pokedex.ui.color.Color
 import dev.jx.pokedex.ui.viewmodel.PokemonDetailViewModel
 import dev.jx.pokedex.util.fadeBgColor
 import java.security.InvalidParameterException
-
 
 class PokemonDetailFragment : Fragment() {
 
@@ -42,51 +41,51 @@ class PokemonDetailFragment : Fragment() {
     ): View {
         binding = FragmentPokemonDetailBinding.inflate(inflater, container, false)
         sharedElementEnterTransition = TransitionInflater.from(binding.root.context)
-            .inflateTransition(android.R.transition.move)
+            .inflateTransition(R.transition.image_shared_element_transition)
         sharedElementReturnTransition = null
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupViewPager()
+        // For shared element transition
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
 
         viewModel.setPokemonList(args.pokemon.toList())
         viewModel.onPokemonChange(args.pos)
+        binding.pokeballLogo.startAnimation(
+            AnimationUtils.loadAnimation(
+                context,
+                R.anim.infinite_rotation
+            )
+        )
 
-        val sliderAdapter = PokemonSliderAdapter(args.pokemon.toList())
-        pokemonImage.adapter = sliderAdapter
+        setupToolbar()
+        setupCollapsingToolbar()
+        setupViewPager()
+        setupImageSlider()
+        setPokemonInfo(args.pokemon[args.pos])
+
+    }
+
+    private fun setupImageSlider() = with(binding) {
+        pokemonImage.setPageTransformer(ZoomOutPageTransformer())
+        pokemonImage.adapter = PokemonSliderAdapter(args.pokemon.toList())
         pokemonImage.setCurrentItem(args.pos, false)
-        pokemonImage.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        pokemonImage.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 setPokemonInfo(args.pokemon[position])
                 viewModel.onPokemonChange(position)
                 super.onPageSelected(position)
             }
         })
-
-        // For shared element transition
-        postponeEnterTransition()
-        view.doOnPreDraw { startPostponedEnterTransition() }
-
-        setPokemonInfo(args.pokemon[args.pos])
-
-        val rotateAnim = AnimationUtils.loadAnimation(context, R.anim.infinite_rotation)
-        pokeballLogo.startAnimation(rotateAnim)
-
-        setupToolbar()
-
-        setupCollapsingToolbar()
-
-
-
     }
 
     private fun setupViewPager() = with(binding) {
-        val pokemonInfoAdapter =
-            PokemonInfoAdapter(requireActivity().supportFragmentManager, lifecycle)
-        viewPagerInfo.adapter = pokemonInfoAdapter
+        viewPagerInfo.adapter = PokemonInfoAdapter(requireActivity().supportFragmentManager, lifecycle)
         tabLayoutInfo.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
@@ -133,6 +132,9 @@ class PokemonDetailFragment : Fragment() {
             binding.pokemonId.alpha = if (offsetAlpha20 < 0f) 0f else offsetAlpha20
             binding.pokemonType1.alpha = if (offsetAlpha20 < 0f) 0f else offsetAlpha20
             binding.pokemonType2.alpha = if (offsetAlpha20 < 0f) 0f else offsetAlpha20
+
+            // Disable pokemon slider when toolbar collapsed
+            binding.pokemonImage.isUserInputEnabled = (verticalOffset == 0)
         })
     }
 
@@ -150,6 +152,7 @@ class PokemonDetailFragment : Fragment() {
             pokemonType2.visibility = View.GONE
         }
 
+        // For color contrast
         val black = root.resources.getColor(Color.BLACK.id, root.context.theme)
         val white = root.resources.getColor(Color.WHITE.id, root.context.theme)
         if (pokemon.specie.color == Color.WHITE) {
@@ -181,6 +184,5 @@ class PokemonDetailFragment : Fragment() {
     private fun mapRange(
         value: Int, inEnd: Float = 0f, inStart: Float, outEnd: Float = 0f, outStart: Float
     ) = outStart + ((outEnd - outStart) / (inEnd - inStart)) * (value - inStart)
-
 
 }
