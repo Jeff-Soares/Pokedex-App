@@ -15,7 +15,7 @@ class PokemonSliderAdapter(private val pokemons: List<Pokemon>) :
     inner class SliderViewHolder(private val itemView: View) :
         RecyclerView.ViewHolder(itemView) {
 
-        fun bind (pokemon: Pokemon) = with(itemView){
+        fun bind(pokemon: Pokemon) = with(itemView) {
             val image = findViewById<ImageView>(R.id.slider_image)
             image.transitionName = "sharedImage_${pokemon.id}"
             image.loadPokemonImage(pokemon.id)
@@ -25,8 +25,12 @@ class PokemonSliderAdapter(private val pokemons: List<Pokemon>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonSliderAdapter
     .SliderViewHolder {
-        return SliderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.image_slide,
-            parent, false))
+        return SliderViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.image_slide,
+                parent, false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: PokemonSliderAdapter.SliderViewHolder, position: Int) {

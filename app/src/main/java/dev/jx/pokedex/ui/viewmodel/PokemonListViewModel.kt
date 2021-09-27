@@ -42,7 +42,7 @@ class PokemonListViewModel @Inject constructor(
     }
 
     private fun onFailure(error: Throwable?) {
-        _pokemonList.postValue(ViewState.Error(error?.message))
+        _pokemonList.postValue(ViewState.Error(message = error?.message ?: "Error on load data"))
     }
 
 }

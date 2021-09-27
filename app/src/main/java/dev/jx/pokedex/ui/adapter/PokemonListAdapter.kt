@@ -11,7 +11,7 @@ import dev.jx.pokedex.databinding.PokemonItemBinding
 import dev.jx.pokedex.model.Pokemon
 import dev.jx.pokedex.ui.color.Color
 import dev.jx.pokedex.util.changeBgColor
-import dev.jx.pokedex.util.loadPokemonImage
+import dev.jx.pokedex.util.loadPokemonImageWithHolder
 
 @SuppressLint("NotifyDataSetChanged")
 class PokemonListAdapter(private val onClick: (List<Pokemon>, Int, ImageView) -> Unit) :
@@ -19,6 +19,7 @@ class PokemonListAdapter(private val onClick: (List<Pokemon>, Int, ImageView) ->
     .Adapter<PokemonListAdapter.PokemonViewHolder>() {
 
     private var pokemonList: MutableList<Pokemon> = mutableListOf()
+    private var pokemonListAll: MutableList<Pokemon> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {
         val binding = PokemonItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -53,7 +54,7 @@ class PokemonListAdapter(private val onClick: (List<Pokemon>, Int, ImageView) ->
                 typeName2.visibility = View.GONE
             }
 
-            binding.image.loadPokemonImage(pokemon.id)
+            binding.image.loadPokemonImageWithHolder(pokemon.id)
 
             changeItemPrimaryColor(pokemon)
             binding.image.transitionName = "sharedImage_${pokemon.id}"
@@ -89,11 +90,21 @@ class PokemonListAdapter(private val onClick: (List<Pokemon>, Int, ImageView) ->
 
     fun setPokemonList(list: List<Pokemon>) {
         pokemonList = list.toMutableList()
+        pokemonListAll = list.toMutableList()
         notifyDataSetChanged()
     }
 
     fun clearPokemonList() {
         pokemonList.clear()
+        pokemonListAll.clear()
+        notifyDataSetChanged()
+    }
+
+    fun setFilter(str: String?) {
+        pokemonList =
+            if (str.isNullOrEmpty()) pokemonListAll else pokemonListAll.filter { pokemon ->
+                pokemon.name.contains(str, true)
+            }.toMutableList()
         notifyDataSetChanged()
     }
 

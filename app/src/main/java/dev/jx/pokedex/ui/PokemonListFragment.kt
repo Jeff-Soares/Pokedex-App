@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.core.view.doOnPreDraw
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -18,6 +18,7 @@ import dev.jx.pokedex.ui.adapter.PokemonListAdapter
 import dev.jx.pokedex.ui.animation.BounceEdgeEffectFactory
 import dev.jx.pokedex.ui.state.ViewState
 import dev.jx.pokedex.ui.viewmodel.PokemonListViewModel
+import dev.jx.pokedex.util.toast
 
 @AndroidEntryPoint
 class PokemonListFragment : Fragment() {
@@ -42,6 +43,7 @@ class PokemonListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         binding.pokemonList.apply {
             adapter = pokemonListAdapter
             edgeEffectFactory = BounceEdgeEffectFactory()
@@ -51,27 +53,40 @@ class PokemonListFragment : Fragment() {
 
         viewModel.pokemonList.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is ViewState.Success -> onSuccess(result)
-                is ViewState.Error -> onFailure(result)
+                is ViewState.Success -> onSuccess(result.value!!)
+                is ViewState.Error -> onFailure(result.message!!)
                 is ViewState.Loading -> onLoading(true)
             }
         }
 
+        setupSearchView()
+
         if (viewModel.recyclerState == RecyclerState.EMPTY) viewModel.getPokemonList()
     }
 
-    private fun onSuccess(result: ViewState.Success<List<Pokemon>>) {
+    private fun setupSearchView() {
+        binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?) = true
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText != null) pokemonListAdapter.setFilter(newText)
+                return true
+            }
+        })
+    }
+
+    private fun onSuccess(result: List<Pokemon>) {
         onLoading(false)
         if (viewModel.recyclerState == RecyclerState.EMPTY) {
             viewModel.recyclerState = RecyclerState.POPULATED
-            pokemonListAdapter.setPokemonList(result.value!!)
+            pokemonListAdapter.setPokemonList(result)
             binding.pokemonList.scheduleLayoutAnimation()
         }
 
     }
 
-    private fun onFailure(result: ViewState.Error<List<Pokemon>>) {
+    private fun onFailure(result: String) {
         onLoading(false)
+        result.toast(requireContext())
         pokemonListAdapter.clearPokemonList()
     }
 

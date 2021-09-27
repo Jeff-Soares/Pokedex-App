@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import dev.jx.pokedex.databinding.FragmentEvolutionBinding
 import dev.jx.pokedex.model.Pokemon
 import dev.jx.pokedex.ui.viewmodel.PokemonDetailViewModel
-import dev.jx.pokedex.util.loadPokemonImage
+import dev.jx.pokedex.util.loadPokemonImageWithHolder
 
 class EvolutionFragment : Fragment() {
 
@@ -45,15 +45,15 @@ class EvolutionFragment : Fragment() {
             evoTwoName.text = evolutionChain[1].name
             evoThreeName.text = evolutionChain[1].name
             evoFourName.text = evolutionChain[2].name
-            evoOne.loadPokemonImage(evolutionChain[0].pokemonId)
-            evoTwo.loadPokemonImage(evolutionChain[1].pokemonId)
-            evoThree.loadPokemonImage(evolutionChain[1].pokemonId)
-            evoFour.loadPokemonImage(evolutionChain[2].pokemonId)
+            evoOne.loadPokemonImageWithHolder(evolutionChain[0].pokemonId)
+            evoTwo.loadPokemonImageWithHolder(evolutionChain[1].pokemonId)
+            evoThree.loadPokemonImageWithHolder(evolutionChain[1].pokemonId)
+            evoFour.loadPokemonImageWithHolder(evolutionChain[2].pokemonId)
         } else if (evolutionChain?.size == 2) {
             evoOneName.text = evolutionChain[0].name
             evoTwoName.text = evolutionChain[1].name
-            evoOne.loadPokemonImage(evolutionChain[0].pokemonId)
-            evoTwo.loadPokemonImage(evolutionChain[1].pokemonId)
+            evoOne.loadPokemonImageWithHolder(evolutionChain[0].pokemonId)
+            evoTwo.loadPokemonImageWithHolder(evolutionChain[1].pokemonId)
         }
     }
 
