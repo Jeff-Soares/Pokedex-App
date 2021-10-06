@@ -18,7 +18,7 @@ class PokemonDetailViewModel : ViewModel() {
 
     fun onPokemonChange(pos: Int) {
         if (pokemons.isEmpty()) return
-        _pokemonSelected.postValue(ViewState.Success(pokemons[pos]))
+        _pokemonSelected.value = ViewState.Success(pokemons[pos])
     }
 
     fun setPokemonList(list: List<Pokemon>){

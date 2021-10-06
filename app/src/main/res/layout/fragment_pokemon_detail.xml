@@ -5,7 +5,8 @@
     android:id="@+id/pokemon_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_green"
+    android:background="@color/white"
+    tools:background="@color/color_green"
     android:fitsSystemWindows="true"
     tools:context=".ui.PokemonDetailFragment">
 

@@ -97,7 +97,9 @@ class PokemonListAdapter(private val onClick: (List<Pokemon>, Int, ImageView) ->
     fun setFilter(str: String?, callback: () -> Unit = {}) {
         submitList(
             if (str.isNullOrEmpty()) pokemonListAll else pokemonListAll.filter { pokemon ->
-                pokemon.name.contains(str, true)
+                pokemon.name.contains(str, ignoreCase = true)
+            }.sortedBy { pokemon ->
+                pokemon.name.indexOf(str, ignoreCase = true)
             }) { callback() }
     }
 

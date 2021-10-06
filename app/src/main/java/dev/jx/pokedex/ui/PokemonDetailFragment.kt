@@ -23,6 +23,7 @@ import dev.jx.pokedex.ui.adapter.PokemonSliderAdapter
 import dev.jx.pokedex.ui.animation.ZoomOutPageTransformer
 import dev.jx.pokedex.ui.color.Color
 import dev.jx.pokedex.ui.viewmodel.PokemonDetailViewModel
+import dev.jx.pokedex.util.changeBgColor
 import dev.jx.pokedex.util.fadeBgColor
 import java.security.InvalidParameterException
 
@@ -48,6 +49,9 @@ class PokemonDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Set initial color
+        binding.root.changeBgColor(args.pokemon[args.pos].specie.color)
 
         // For shared element transition
         postponeEnterTransition()
@@ -85,7 +89,7 @@ class PokemonDetailFragment : Fragment() {
     }
 
     private fun setupViewPager() = with(binding) {
-        viewPagerInfo.adapter = PokemonInfoAdapter(requireActivity().supportFragmentManager, lifecycle)
+        viewPagerInfo.adapter = PokemonInfoAdapter(childFragmentManager, lifecycle)
         tabLayoutInfo.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
