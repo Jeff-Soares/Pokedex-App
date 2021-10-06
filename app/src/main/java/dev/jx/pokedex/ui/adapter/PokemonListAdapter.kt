@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import dev.jx.pokedex.R
 import dev.jx.pokedex.databinding.PokemonItemBinding
@@ -15,11 +17,9 @@ import dev.jx.pokedex.util.loadPokemonImageWithHolder
 
 @SuppressLint("NotifyDataSetChanged")
 class PokemonListAdapter(private val onClick: (List<Pokemon>, Int, ImageView) -> Unit) :
-    RecyclerView
-    .Adapter<PokemonListAdapter.PokemonViewHolder>() {
+    ListAdapter<Pokemon, PokemonListAdapter.PokemonViewHolder>(PokemonDiffCallback()) {
 
-    private var pokemonList: MutableList<Pokemon> = mutableListOf()
-    private var pokemonListAll: MutableList<Pokemon> = mutableListOf()
+    private var pokemonListAll = mutableListOf<Pokemon>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {
         val binding = PokemonItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -27,21 +27,21 @@ class PokemonListAdapter(private val onClick: (List<Pokemon>, Int, ImageView) ->
     }
 
     override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {
-        holder.bind(pokemonList[position], position)
+        holder.bind(currentList[position])
     }
 
-    override fun getItemCount(): Int {
-        return pokemonList.size
-    }
+    private class PokemonDiffCallback : DiffUtil.ItemCallback<Pokemon>() {
+        override fun areItemsTheSame(oldItem: Pokemon, newItem: Pokemon) =
+            oldItem.id == newItem.id
 
-    override fun getItemId(position: Int): Long {
-        return pokemonList[position].id.toLong()
+        override fun areContentsTheSame(oldItem: Pokemon, newItem: Pokemon) =
+            oldItem == newItem
     }
 
     inner class PokemonViewHolder(private val binding: PokemonItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(pokemon: Pokemon, pos: Int) = with(binding) {
+        fun bind(pokemon: Pokemon) = with(binding) {
             id.text =
                 binding.root.resources.getString(R.string.formattedId, pokemon.formattedId)
             name.text = pokemon.name
@@ -58,7 +58,9 @@ class PokemonListAdapter(private val onClick: (List<Pokemon>, Int, ImageView) ->
 
             changeItemPrimaryColor(pokemon)
             binding.image.transitionName = "sharedImage_${pokemon.id}"
-            root.setOnClickListener { onClick.invoke(pokemonList.toList(), pos, binding.image) }
+            root.setOnClickListener {
+                onClick.invoke(pokemonListAll, pokemon.id - 1, binding.image)
+            }
 
         }
 
@@ -85,27 +87,18 @@ class PokemonListAdapter(private val onClick: (List<Pokemon>, Int, ImageView) ->
             }
         }
 
-
     }
 
     fun setPokemonList(list: List<Pokemon>) {
-        pokemonList = list.toMutableList()
         pokemonListAll = list.toMutableList()
-        notifyDataSetChanged()
+        submitList(list)
     }
 
-    fun clearPokemonList() {
-        pokemonList.clear()
-        pokemonListAll.clear()
-        notifyDataSetChanged()
-    }
-
-    fun setFilter(str: String?) {
-        pokemonList =
+    fun setFilter(str: String?, callback: () -> Unit = {}) {
+        submitList(
             if (str.isNullOrEmpty()) pokemonListAll else pokemonListAll.filter { pokemon ->
                 pokemon.name.contains(str, true)
-            }.toMutableList()
-        notifyDataSetChanged()
+            }) { callback() }
     }
 
 }

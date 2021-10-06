@@ -1,9 +1,11 @@
 package dev.jx.pokedex.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -25,11 +27,7 @@ class PokemonListFragment : Fragment() {
 
     private lateinit var binding: FragmentPokemonListBinding
     private val viewModel by viewModels<PokemonListViewModel>()
-    private val pokemonListAdapter by lazy {
-        PokemonListAdapter(::goToDetails).apply {
-            setHasStableIds(true)
-        }
-    }
+    private val pokemonListAdapter by lazy { PokemonListAdapter(::goToDetails) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,7 +66,9 @@ class PokemonListFragment : Fragment() {
         binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?) = true
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText != null) pokemonListAdapter.setFilter(newText)
+                if (newText != null) pokemonListAdapter.setFilter(newText) {
+                    binding.pokemonList.layoutManager?.scrollToPosition(0)
+                }
                 return true
             }
         })
@@ -76,18 +76,15 @@ class PokemonListFragment : Fragment() {
 
     private fun onSuccess(result: List<Pokemon>) {
         onLoading(false)
-        if (viewModel.recyclerState == RecyclerState.EMPTY) {
-            viewModel.recyclerState = RecyclerState.POPULATED
-            pokemonListAdapter.setPokemonList(result)
-            binding.pokemonList.scheduleLayoutAnimation()
-        }
-
+        viewModel.recyclerState = RecyclerState.POPULATED
+        pokemonListAdapter.setPokemonList(result)
+        binding.pokemonList.scheduleLayoutAnimation()
     }
 
     private fun onFailure(result: String) {
         onLoading(false)
         result.toast(requireContext())
-        pokemonListAdapter.clearPokemonList()
+        pokemonListAdapter.submitList(mutableListOf())
     }
 
     private fun onLoading(isLoading: Boolean) {
@@ -95,6 +92,7 @@ class PokemonListFragment : Fragment() {
     }
 
     private fun goToDetails(pokemons: List<Pokemon>, pos: Int, sharedImage: ImageView) {
+        resetSearchView()
         val extras = FragmentNavigatorExtras(sharedImage to sharedImage.transitionName)
         findNavController().navigate(
             PokemonListFragmentDirections
@@ -104,6 +102,16 @@ class PokemonListFragment : Fragment() {
                     sharedImage.transitionName
                 ), extras
         )
+    }
+
+    private fun resetSearchView() {
+        activity?.currentFocus?.let { view ->
+            val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(view.windowToken, 0)
+        }
+        binding.search.onActionViewCollapsed()
+        binding.search.setQuery("", false)
+        binding.search.clearFocus()
     }
 
     enum class RecyclerState {

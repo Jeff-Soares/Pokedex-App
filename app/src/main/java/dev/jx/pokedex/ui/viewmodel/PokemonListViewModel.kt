@@ -13,6 +13,7 @@ import dev.jx.pokedex.ui.PokemonListFragment.RecyclerState.*
 import dev.jx.pokedex.ui.state.ViewState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 typealias PokemonListMutableLiveData = MutableLiveData<ViewState<List<Pokemon>>>
@@ -29,8 +30,8 @@ class PokemonListViewModel @Inject constructor(
 
     fun getPokemonList() {
         _pokemonList.postValue(ViewState.Loading())
-        viewModelScope.launch(Dispatchers.IO) {
-            when (val response = repository.queryPokemonList()) {
+        viewModelScope.launch {
+            when (val response = withContext(Dispatchers.IO) { repository.queryPokemonList() }) {
                 is Ok -> onSuccess(response.value!!)
                 is Err -> onFailure(response.error)
             }
@@ -38,11 +39,11 @@ class PokemonListViewModel @Inject constructor(
     }
 
     private fun onSuccess(value: List<Pokemon>) {
-        _pokemonList.postValue(ViewState.Success(value))
+        _pokemonList.value = ViewState.Success(value)
     }
 
     private fun onFailure(error: Throwable?) {
-        _pokemonList.postValue(ViewState.Error(message = error?.message ?: "Error on load data"))
+        _pokemonList.value = ViewState.Error(message = error?.message ?: "Error on load data")
     }
 
 }
