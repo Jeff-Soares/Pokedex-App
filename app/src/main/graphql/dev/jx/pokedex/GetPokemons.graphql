@@ -8,6 +8,12 @@ query getPokemons {
         pokemon_v2_pokemontypes {
             pokemon_v2_type {
                 name
+                pokemonV2TypeefficaciesByTargetTypeId {
+                    damage_factor
+                    pokemon_v2_type {
+                        name
+                    }
+                }
             }
         }
         pokemon_v2_pokemonstats {

@@ -26,4 +26,5 @@
     <string name="base_stats">Base Stats</string>
     <string name="evolution">Evolution</string>
     <string name="search">Search</string>
+    <string name="weaknesses">Weaknesses</string>
 </resources>

@@ -13,6 +13,7 @@ data class Pokemon(
     val weight: Int,
     val stats: PokemonStats,
     val type: List<PokemonType>,
+    val typeWeaknesses: List<PokemonType>,
     val abilities: List<PokemonAbility>?,
     val specie: PokemonSpecie,
     val flavorText: String,

@@ -15,6 +15,7 @@ fun Pokemon_v2_pokemon.toModel(): Pokemon {
         weight = weight ?: 0,
         stats = pokemon_v2_pokemonstats.toModel(),
         type = pokemon_v2_pokemontypes.toModel(),
+        typeWeaknesses = pokemon_v2_pokemontypes.toTypeWeakness(),
         abilities = pokemon_v2_pokemonabilities.toModel(),
         specie = pokemon_v2_pokemonspecy?.toModel()!!,
         flavorText = pokemon_v2_pokemonspecy.getFlavorText() ?: ""
@@ -36,6 +37,31 @@ fun List<Pokemon_v2_pokemontype>.toModel(): List<PokemonType> =
     map { it.pokemon_v2_type?.toModel() ?: return listOf(PokemonType("No type")) }
 
 fun Pokemon_v2_type.toModel() = PokemonType(name = name.capitalize())
+
+@JvmName("toModelPokemon_v2_pokemontypeWeakness")
+private fun List<Pokemon_v2_pokemontype>.toTypeWeakness(): List<PokemonType> {
+    val pokeTypes = map { it.pokemon_v2_type?.name }
+
+    val typeEfficacies = flatMap {
+        it.pokemon_v2_type?.pokemonV2TypeefficaciesByTargetTypeId ?: listOf()
+    }
+    val weaks = typeEfficacies
+        .filter { it.damage_factor > 100 }
+        .filterNot { pokeTypes.contains(it.pokemon_v2_type?.name) }
+    val strengths = typeEfficacies
+        .filter { it.damage_factor < 100 }
+        .filterNot { pokeTypes.contains(it.pokemon_v2_type?.name) }
+
+    val weaknesses = (weaks + strengths)
+        .groupBy { it.pokemon_v2_type?.name }
+        .filter {
+            val dmg = it.value.fold(0) { acc, dam -> acc + dam.damage_factor }
+            dmg == 200 || dmg == 400
+        }
+        .keys
+        .map { PokemonType(it!!.capitalize()) }
+    return weaknesses
+}
 
 @JvmName("toModelPokemon_v2_pokemonability")
 fun List<Pokemon_v2_pokemonability>.toModel(): List<PokemonAbility>? =
