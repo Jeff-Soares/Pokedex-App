@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import dev.jx.pokedex.R
 import dev.jx.pokedex.databinding.PokemonItemBinding
+import dev.jx.pokedex.model.FilterOptions
 import dev.jx.pokedex.model.Pokemon
 import dev.jx.pokedex.ui.color.Color
 import dev.jx.pokedex.util.changeBgColor
@@ -101,6 +102,25 @@ class PokemonListAdapter(private val onClick: (List<Pokemon>, Int, ImageView) ->
             }.sortedBy { pokemon ->
                 pokemon.name.indexOf(str, ignoreCase = true)
             }) { callback() }
+    }
+
+    fun setMultiFilter(options: FilterOptions, callback: () -> Unit = {}) {
+        submitList(
+            pokemonListAll
+                .asSequence()
+                .filter { pokemon -> pokemon.height * 10 in options.height }
+                .filter { pokemon -> pokemon.weight / 10 in options.weight }
+                .filter { pokemon ->
+                    pokemon.type.map { FilterOptions.Type.getType(it.name) }
+                        .containsAll(options.types)
+                }
+                .filter { pokemon ->
+                    pokemon.typeWeaknesses.map { FilterOptions.Type.getType(it.name) }
+                        .containsAll(options.weakness)
+                }
+                .sortedWith(options.orderBy.comparator)
+                .toList()
+        ) { callback() }
     }
 
 }

@@ -5,6 +5,7 @@ import dev.jx.pokedex.model.*
 import dev.jx.pokedex.ui.color.Color
 import dev.jx.pokedex.ui.color.Color.*
 import java.lang.StringBuilder
+import java.util.*
 
 fun Pokemon_v2_pokemon.toModel(): Pokemon {
     return Pokemon(
@@ -27,8 +28,11 @@ fun String.capitalize() = replaceFirstChar { it.uppercaseChar() }
 fun String.formatName(): String {
     val str = StringBuilder()
     split("-")
-        .map { it.capitalize() }
-        .forEach { str.append("$it ") }
+        .joinTo(str, " ") { name ->
+            name.replaceFirstChar {
+                if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+            }
+        }
     return str.toString()
 }
 

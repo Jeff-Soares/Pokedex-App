@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.SimpleItemAnimator
 import dagger.hilt.android.AndroidEntryPoint
 import dev.jx.pokedex.databinding.FragmentPokemonListBinding
+import dev.jx.pokedex.model.FilterOptions
 import dev.jx.pokedex.model.Pokemon
 import dev.jx.pokedex.ui.adapter.PokemonListAdapter
 import dev.jx.pokedex.ui.animation.BounceEdgeEffectFactory
@@ -23,11 +24,12 @@ import dev.jx.pokedex.ui.viewmodel.PokemonListViewModel
 import dev.jx.pokedex.util.toast
 
 @AndroidEntryPoint
-class PokemonListFragment : Fragment() {
+class PokemonListFragment : Fragment(), FilterDialogFragment.FilterDialog {
 
     private lateinit var binding: FragmentPokemonListBinding
     private val viewModel by viewModels<PokemonListViewModel>()
     private val pokemonListAdapter by lazy { PokemonListAdapter(::goToDetails) }
+    private val filterDialog by lazy { FilterDialogFragment() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,6 +60,7 @@ class PokemonListFragment : Fragment() {
         }
 
         setupSearchView()
+        setupFilter()
 
         if (viewModel.recyclerState == RecyclerState.EMPTY) viewModel.getPokemonList()
     }
@@ -72,6 +75,19 @@ class PokemonListFragment : Fragment() {
                 return true
             }
         })
+        binding.search.setOnSearchClickListener {
+            binding.pokedexTitle.visibility = View.GONE
+        }
+        binding.search.setOnCloseListener {
+            binding.pokedexTitle.visibility = View.VISIBLE
+            false
+        }
+    }
+
+    private fun setupFilter() {
+        binding.filter.setOnClickListener {
+            filterDialog.show(childFragmentManager, "FilterDialogFragment")
+        }
     }
 
     private fun onSuccess(result: List<Pokemon>) {
@@ -116,6 +132,12 @@ class PokemonListFragment : Fragment() {
 
     enum class RecyclerState {
         POPULATED, EMPTY
+    }
+
+    override fun setFilter(options: FilterOptions) {
+        pokemonListAdapter.setMultiFilter(options) {
+            binding.pokemonList.layoutManager?.scrollToPosition(0)
+        }
     }
 
 }

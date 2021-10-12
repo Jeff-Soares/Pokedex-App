@@ -21,4 +21,8 @@
 
     <color name="white_alpha20">#33FFFFFF</color>
     <color name="black_alpha10">#1A000000</color>
+
+    <color name="color_green_not_selected">#82D8C4</color>
+    <color name="color_green_selected">#165748</color>
+
 </resources>

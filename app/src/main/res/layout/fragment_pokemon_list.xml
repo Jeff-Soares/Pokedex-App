@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
     tools:context=".ui.PokemonListFragment">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -58,12 +59,24 @@
                         android:id="@+id/search"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        app:iconifiedByDefault="true"
-                        android:layout_marginHorizontal="8dp"
-                        android:maxWidth="280dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentBottom="true"
                         android:layout_gravity="center"
+                        android:maxWidth="99999dp"
+                        android:layout_toStartOf="@id/filter"
+                        app:iconifiedByDefault="true"
                         app:queryHint="@string/search" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/filter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentBottom="true"
+                        android:paddingHorizontal="16dp"
+                        android:src="@drawable/ic_filter"
+                        android:background="@null"
+                        android:layout_alignParentEnd="true"/>
                 </RelativeLayout>
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
@@ -88,12 +101,12 @@
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="270dp"
+        android:layout_height="270dp"
         android:elevation="-1dp"
         android:src="@drawable/pokeball_logo"
-        android:translationX="93dp"
-        android:translationY="-73dp"
+        android:translationY="-83dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

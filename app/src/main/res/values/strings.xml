@@ -27,4 +27,40 @@
     <string name="evolution">Evolution</string>
     <string name="search">Search</string>
     <string name="weaknesses">Weaknesses</string>
+    <string name="order_by_label">Order by:</string>
+    <string name="type_label">Type:</string>
+    <string name="normal">Normal</string>
+    <string name="fighting">Fighting</string>
+    <string name="flying">Flying</string>
+    <string name="poison">Poison</string>
+    <string name="ground">Ground</string>
+    <string name="rock">Rock</string>
+    <string name="bug">Bug</string>
+    <string name="ghost">Ghost</string>
+    <string name="steel">Steel</string>
+    <string name="fire">Fire</string>
+    <string name="water">Water</string>
+    <string name="grass">Grass</string>
+    <string name="electric">Electric</string>
+    <string name="psychic">Psychic</string>
+    <string name="dark">Dark</string>
+    <string name="ice">Ice</string>
+    <string name="dragon">Dragon</string>
+    <string name="fairy">Fairy</string>
+    <string name="height_label">Height:</string>
+    <string name="weight_label">Weight:</string>
+    <string name="weakness_label">Weakness:</string>
+    <string name="apply_button">Apply</string>
+    <string name="cancel_button">Cancel</string>
+
+    <string-array name="order_by">
+        <item>Number - Asc</item>
+        <item>Number - Desc</item>
+        <item>Name - A-Z</item>
+        <item>Name - Z-A</item>
+        <item>Height</item>
+        <item>Weight</item>
+        <item>Total stats - Asc</item>
+        <item>Total stats - Desc</item>
+    </string-array>
 </resources>

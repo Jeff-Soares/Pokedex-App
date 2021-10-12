@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="2dp"
+    android:layout_marginTop="2dp"
+    app:flexDirection="row"
+    app:flexWrap="wrap"
+    app:justifyContent="space_around">
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/op_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/type_bg_selector"
+        android:button="@null"
+        android:paddingStart="10dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="2dp"
+        android:text="@string/normal"
+        android:textAlignment="center"
+        android:textColor="@drawable/type_text_color_selector"
+        tools:background="@drawable/type_checked"
+        tools:textColor="@color/white" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/op_fighting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/type_bg_selector"
+        android:button="@null"
+        android:paddingStart="10dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="2dp"
+        android:text="@string/fighting"
+        android:textAlignment="center"
+        android:textColor="@drawable/type_text_color_selector" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/op_flying"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/type_bg_selector"
+        android:button="@null"
+        android:paddingStart="10dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="2dp"
+        android:text="@string/flying"
+        android:textAlignment="center"
+        android:textColor="@drawable/type_text_color_selector" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/op_poison"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/type_bg_selector"
+        android:button="@null"
+        android:paddingStart="10dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="2dp"
+        android:text="@string/poison"
+        android:textAlignment="center"
+        android:textColor="@drawable/type_text_color_selector" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/op_ground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/type_bg_selector"
+        android:button="@null"
+        android:paddingStart="10dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="2dp"
+        android:text="@string/ground"
+        android:textAlignment="center"
+        android:textColor="@drawable/type_text_color_selector" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/op_rock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/type_bg_selector"
+        android:button="@null"
+        android:paddingStart="10dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="2dp"
+        android:text="@string/rock"
+        android:textAlignment="center"
+        android:textColor="@drawable/type_text_color_selector" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/op_bug"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/type_bg_selector"
+        android:button="@null"
+        android:paddingStart="10dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="2dp"
+        android:text="@string/bug"
+        android:textAlignment="center"
+        android:textColor="@drawable/type_text_color_selector" />
+
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/op_ghost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/type_bg_selector"
+        android:button="@null"
+        android:paddingStart="10dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="2dp"
+        android:text="@string/ghost"
+        android:textAlignment="center"
+        android:textColor="@drawable/type_text_color_selector" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/op_steel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/type_bg_selector"
+        android:button="@null"
+        android:paddingStart="10dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="2dp"
+        android:text="@string/steel"
+        android:textAlignment="center"
+        android:textColor="@drawable/type_text_color_selector" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/op_fire"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/type_bg_selector"
+        android:button="@null"
+        android:paddingStart="10dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="2dp"
+        android:text="@string/fire"
+        android:textAlignment="center"
+        android:textColor="@drawable/type_text_color_selector" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/op_water"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/type_bg_selector"
+        android:button="@null"
+        android:paddingStart="10dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="2dp"
+        android:text="@string/water"
+        android:textAlignment="center"
+        android:textColor="@drawable/type_text_color_selector" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/op_grass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/type_bg_selector"
+        android:button="@null"
+        android:paddingStart="10dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="2dp"
+        android:text="@string/grass"
+        android:textAlignment="center"
+        android:textColor="@drawable/type_text_color_selector" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/op_electric"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/type_bg_selector"
+        android:button="@null"
+        android:paddingStart="10dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="2dp"
+        android:text="@string/electric"
+        android:textAlignment="center"
+        android:textColor="@drawable/type_text_color_selector" />
+
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/op_psychic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/type_bg_selector"
+        android:button="@null"
+        android:paddingStart="10dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="2dp"
+        android:text="@string/psychic"
+        android:textAlignment="center"
+        android:textColor="@drawable/type_text_color_selector" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/op_dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/type_bg_selector"
+        android:button="@null"
+        android:paddingStart="10dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="2dp"
+        android:text="@string/dark"
+        android:textAlignment="center"
+        android:textColor="@drawable/type_text_color_selector" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/op_ice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/type_bg_selector"
+        android:button="@null"
+        android:paddingStart="10dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="2dp"
+        android:text="@string/ice"
+        android:textAlignment="center"
+        android:textColor="@drawable/type_text_color_selector" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/op_dragon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/type_bg_selector"
+        android:button="@null"
+        android:paddingStart="10dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="2dp"
+        android:text="@string/dragon"
+        android:textAlignment="center"
+        android:textColor="@drawable/type_text_color_selector" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/op_fairy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/type_bg_selector"
+        android:button="@null"
+        android:paddingStart="10dp"
+        android:paddingTop="2dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="2dp"
+        android:text="@string/fairy"
+        android:textAlignment="center"
+        android:textColor="@drawable/type_text_color_selector" />
+
+</com.google.android.flexbox.FlexboxLayout>
