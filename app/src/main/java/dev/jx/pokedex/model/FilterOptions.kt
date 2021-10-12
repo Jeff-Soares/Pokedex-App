@@ -1,5 +1,6 @@
 package dev.jx.pokedex.model
 
+@Suppress("unused")
 data class FilterOptions(
     var orderBy: OrderBy,
     var types: List<Type>,

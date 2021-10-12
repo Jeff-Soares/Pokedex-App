@@ -10,9 +10,10 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.core.view.children
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
 import dev.jx.pokedex.databinding.FragmentFilterDialogBinding
 import dev.jx.pokedex.model.FilterOptions
-import dev.jx.pokedex.model.FilterOptions.OrderBy.NUMBER_ASC
+import dev.jx.pokedex.ui.viewmodel.PokemonListViewModel
 import dev.jx.pokedex.util.setWidthPercent
 
 const val TYPE_TAG = "TypeError"
@@ -23,10 +24,8 @@ class FilterDialogFragment : DialogFragment() {
 
     private lateinit var binding: FragmentFilterDialogBinding
     private lateinit var callback: FilterDialog
-    private val options by lazy {
-        // Set default values
-        FilterOptions(NUMBER_ASC, listOf(), 0..MAX_HEIGHT, 0..MAX_WEIGHT, listOf())
-    }
+    private val viewModel: PokemonListViewModel by viewModels(
+        ownerProducer = { requireParentFragment() })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +45,26 @@ class FilterDialogFragment : DialogFragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        viewModel.filterOptions.let {
+            binding.heightSelect.values =
+                listOf(it.height.first().toFloat(), it.height.last().toFloat())
+            binding.weightSelect.values =
+                listOf(it.weight.first().toFloat(), it.weight.last().toFloat())
+            binding.typesLayout.root.children.forEach { view ->
+                val checkbox = view as AppCompatCheckBox
+                checkbox.isChecked =
+                    it.types.contains(FilterOptions.Type.getType(checkbox.text.toString()))
+            }
+            binding.weaknessLayout.root.children.forEach { view ->
+                val checkbox = view as AppCompatCheckBox
+                checkbox.isChecked =
+                    it.weakness.contains(FilterOptions.Type.getType(checkbox.text.toString()))
+            }
+        }
+        super.onResume()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -60,7 +79,7 @@ class FilterDialogFragment : DialogFragment() {
 
     private fun filter() {
         setOptions()
-        callback.setFilter(options)
+        callback.setFilter(viewModel.filterOptions)
         dismiss()
     }
 
@@ -104,14 +123,16 @@ class FilterDialogFragment : DialogFragment() {
             )
         }
 
-        options.orderBy = orderSpinner.selectedItem as FilterOptions.OrderBy
-        options.height = heightSelect.values.first().toInt()..heightSelect.values.last().toInt()
-        options.weight = weightSelect.values.first().toInt()..weightSelect.values.last().toInt()
+        viewModel.filterOptions.orderBy = orderSpinner.selectedItem as FilterOptions.OrderBy
+        viewModel.filterOptions.height =
+            heightSelect.values.first().toInt()..heightSelect.values.last().toInt()
+        viewModel.filterOptions.weight =
+            weightSelect.values.first().toInt()..weightSelect.values.last().toInt()
 
         try {
-            options.types = types.filter { it.isChecked }
+            viewModel.filterOptions.types = types.filter { it.isChecked }
                 .map { FilterOptions.Type.getType(it.text.toString()) }
-            options.weakness = weakTypes.filter { it.isChecked }
+            viewModel.filterOptions.weakness = weakTypes.filter { it.isChecked }
                 .map { FilterOptions.Type.getType(it.text.toString()) }
         } catch (e: NoSuchElementException) {
             Log.e(TYPE_TAG, e.message.toString())

@@ -7,8 +7,11 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.jx.pokedex.data.PokedexRepository
 import dev.jx.pokedex.model.Err
+import dev.jx.pokedex.model.FilterOptions
 import dev.jx.pokedex.model.Ok
 import dev.jx.pokedex.model.Pokemon
+import dev.jx.pokedex.ui.MAX_HEIGHT
+import dev.jx.pokedex.ui.MAX_WEIGHT
 import dev.jx.pokedex.ui.PokemonListFragment.RecyclerState.*
 import dev.jx.pokedex.ui.state.ViewState
 import kotlinx.coroutines.Dispatchers
@@ -27,6 +30,10 @@ class PokemonListViewModel @Inject constructor(
     private val _pokemonList by lazy { PokemonListMutableLiveData() }
     val pokemonList: PokemonListLiveData get() = _pokemonList
     var recyclerState = EMPTY
+    val filterOptions by lazy {
+        // Set default values
+        FilterOptions(FilterOptions.OrderBy.NUMBER_ASC, listOf(), 0..MAX_HEIGHT, 0..MAX_WEIGHT, listOf())
+    }
 
     fun getPokemonList() {
         _pokemonList.postValue(ViewState.Loading())
