@@ -52,6 +52,7 @@
     <string name="weakness_label">Weakness:</string>
     <string name="apply_button">Apply</string>
     <string name="cancel_button">Cancel</string>
+    <string name="clear_button">Clear</string>
 
     <string-array name="order_by">
         <item>Number - Asc</item>

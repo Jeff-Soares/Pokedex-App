@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.appcompat.widget.AppCompatCheckBox
+import androidx.core.view.children
 import androidx.fragment.app.DialogFragment
 import dev.jx.pokedex.databinding.FragmentFilterDialogBinding
 import dev.jx.pokedex.model.FilterOptions
@@ -47,19 +49,33 @@ class FilterDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.apply.setOnClickListener {
-            setOptions()
-            callback.setFilter(options)
-            dismiss()
-        }
-
-        binding.cancel.setOnClickListener {
-            dismiss()
-        }
-
         setDialogSize()
         setupSpinnerOrderBy()
         setupRanges()
+
+        binding.apply.setOnClickListener { filter() }
+        binding.cancel.setOnClickListener { dismiss() }
+        binding.clear.setOnClickListener { clearValues() }
+    }
+
+    private fun filter() {
+        setOptions()
+        callback.setFilter(options)
+        dismiss()
+    }
+
+    private fun clearValues() {
+        binding.orderSpinner.setSelection(0)
+        binding.typesLayout.root.children.forEach { checkbox ->
+            (checkbox as AppCompatCheckBox).isChecked = false
+        }
+        binding.weaknessLayout.root.children.forEach { checkbox ->
+            (checkbox as AppCompatCheckBox).isChecked = false
+        }
+        binding.heightSelect.values = listOf(0f, MAX_HEIGHT.toFloat())
+        binding.weightSelect.values = listOf(0f, MAX_WEIGHT.toFloat())
+
+        filter()
     }
 
     private fun setupSpinnerOrderBy() {
